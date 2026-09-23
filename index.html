@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="cyan">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Ahmadjon Ortuqov — Software Engineer · Systems & Quant</title>
+  <meta name="description" content="Engineering terminal and systems portfolio of Ahmadjon Ortuqov. Software Engineer and Computer Science student at PJATK, Warsaw. Distributed systems, quantitative finance, and native engineering." />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23000000'/><text y='70' x='15' fill='%2300f0ff' font-size='70' font-family='monospace'>$_</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script type="module" crossorigin src="./assets/index--I8liHNA.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-BjdaQdsJ.css">
+</head>
+<body class="crt-curvature">
+  <div id="crt-overlay" class="crt-active"></div>
+
+  <div id="app">
+    <div class="terminal-frame">
+      <header class="terminal-header">
+        <div class="header-left">
+          <div class="status-lights">
+            <span class="light light-red"></span>
+            <span class="light light-amber"></span>
+            <span class="light light-green"></span>
+          </div>
+          <span class="terminal-title">AHMADJON ORTUQOV [TTY0] — SWE & QUANT SYSTEMS</span>
+          <span class="header-badge">WARSAW, PL | PJATK</span>
+        </div>
+        <div class="header-right">
+          <span class="header-badge" id="clock-display">00:00:00 CET</span>
+          <button id="crt-btn" class="btn-ctrl active" title="Toggle CRT Scanline Effect">CRT: ON</button>
+          <span class="header-badge">PALETTE: CYAN</span>
+        </div>
+      </header>
+
+      <main class="terminal-screen" id="terminal-screen">
+        <header class="boot-header" id="terminal-banner">
+          <pre class="boot-ascii text-accent font-bold">
+ █████  ██   ██ ██    ██  █████  ██████       ██████  ███████
+██   ██ ██   ██ ███  ███ ██   ██ ██   ██     ██    ██ ██     
+███████ ███████ ████████ ███████ ██   ██     ██    ██ ███████
+██   ██ ██   ██ ██    ██ ██   ██ ██   ██     ██    ██      ██
+██   ██ ██   ██ ██    ██ ██   ██ ██████       ██████  ███████
+          </pre>
+          <div class="boot-info text-dim">
+            ROM BIOS v4.19 (c) PJATK SYSTEMS LAB - WARSAW, PL<br/>
+            CPU: ARM64-v8.4A @ 3.49 GHz - 64-BIT INTEGER REGISTERS - 0ms LATENCY<br/>
+            AUTHENTICATED OPERATOR: ahmadjon (CS @ PJATK)<br/>
+            SYSTEM ENVIRONMENT: READY
+          </div>
+        </header>
+
+        <div id="terminal-output"></div>
+
+        <div class="terminal-input-row">
+          <span class="prompt-label" id="prompt-user">ahmadjon@warsaw:~$</span>
+          <div class="input-wrapper">
+            <input
+              type="text"
+              id="terminal-input"
+              class="terminal-input"
+              autocomplete="off"
+              autocorrect="off"
+              autocapitalize="off"
+              spellcheck="false"
+              aria-label="Terminal Command Input"
+              autofocus
+            />
+          </div>
+        </div>
+      </main>
+
+      <footer class="terminal-footer-status">
+        <div class="footer-left">
+          <span>PORT: /dev/tty0</span> | 
+          <span>BAUD: 9600 8-N-1</span> | 
+          <span>STATUS: ONLINE</span>
+        </div>
+        <div class="footer-right">
+          <span>TAB: AUTOCOMPLETE</span> | 
+          <span>UP/DOWN: HISTORY</span> | 
+          <span>TYPE 'HELP'</span>
+        </div>
+      </footer>
+    </div>
+  </div>
+
+</body>
+</html>
