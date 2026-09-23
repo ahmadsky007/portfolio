@@ -44,10 +44,6 @@ export const COMMANDS: CommandDefinition[] = [
       }
 
       ctx.print(`
-<div class="terminal-table-header">┌──────────────────────────────────────────────────────────────────────────────┐
-│                     AHMADJON OS v2.6.4 — COMMAND DIRECTORY                   │
-└──────────────────────────────────────────────────────────────────────────────┘</div>
-
 <div class="command-grid">
   <div><span class="cmd-link" data-cmd="whoami">whoami</span>          <span class="text-dim">Engineer identity, background, & philosophy</span></div>
   <div><span class="cmd-link" data-cmd="projects">projects</span>        <span class="text-dim">List selected engineering projects (alias: work)</span></div>
