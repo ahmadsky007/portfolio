@@ -69,7 +69,7 @@ export const COMMANDS: CommandDefinition[] = [
 
   {
     name: 'whoami',
-    aliases: ['about', 'bio'],
+    aliases: ['about', 'bio', 'about.txt', 'whoami.txt'],
     description: 'Print software engineer bio, education, & core mindset',
     execute: (_, ctx) => {
       ctx.print(`
@@ -173,6 +173,36 @@ export const COMMANDS: CommandDefinition[] = [
   },
 
   {
+    name: 'cd',
+    description: 'Change virtual working directory',
+    usage: 'cd <directory>',
+    execute: (args, ctx) => {
+      if (args.length === 0 || args[0] === '~' || args[0] === '/' || args[0] === '..' || args[0] === '.') {
+        ctx.print('<div class="text-dim">Working directory: /home/ahmadjon (virtual root)</div>');
+        return;
+      }
+      const dir = args[0].toLowerCase().trim().replace(/^\.\//, '').replace(/\/$/, '');
+      if (dir === 'projects') {
+        ctx.runCommand('ls projects');
+        return;
+      }
+      if (dir === 'lab') {
+        ctx.runCommand('lab');
+        return;
+      }
+      if (dir === 'arch') {
+        ctx.runCommand('arch');
+        return;
+      }
+      if (['about.txt', 'currently.txt', 'contact.txt', 'resume.pdf', 'whoami.txt', 'now.txt'].includes(dir)) {
+        ctx.print(`cd: not a directory: ${args[0]}. Try <span class="cmd-link" data-cmd="cat ${dir}">cat ${dir}</span>`, { isError: true });
+        return;
+      }
+      ctx.print(`cd: no such file or directory: ${args[0]}`, { isError: true });
+    },
+  },
+
+  {
     name: 'cat',
     description: 'Output content of a virtual file',
     usage: 'cat <filename>',
@@ -182,7 +212,7 @@ export const COMMANDS: CommandDefinition[] = [
         return;
       }
 
-      const file = args[0].toLowerCase().trim();
+      const file = args[0].toLowerCase().trim().replace(/^\.\//, '');
 
       if (file === 'currently.txt' || file === 'now.txt' || file === 'currently') {
         ctx.print(`
@@ -231,7 +261,7 @@ export const COMMANDS: CommandDefinition[] = [
 
   {
     name: 'projects',
-    aliases: ['work', 'portfolio'],
+    aliases: ['work', 'portfolio', 'projects/'],
     description: 'List engineering projects and build journal',
     usage: 'projects',
     execute: (_, ctx) => {
@@ -370,7 +400,7 @@ export const COMMANDS: CommandDefinition[] = [
 
   {
     name: 'lab',
-    aliases: ['experiments', 'research'],
+    aliases: ['experiments', 'research', 'lab/'],
     description: 'Inspect experimental systems, models, and research notebooks',
     usage: 'lab [experiment-id]',
     execute: (args, ctx) => {
@@ -432,7 +462,7 @@ export const COMMANDS: CommandDefinition[] = [
 
   {
     name: 'arch',
-    aliases: ['architecture', 'topology'],
+    aliases: ['architecture', 'topology', 'arch/'],
     description: 'Explore interactive systems architecture trees & node connections',
     usage: 'arch [system-slug]',
     execute: (args, ctx) => {
@@ -478,7 +508,7 @@ export const COMMANDS: CommandDefinition[] = [
 
   {
     name: 'now',
-    aliases: ['currently'],
+    aliases: ['currently', 'currently.txt', 'now.txt', 'status'],
     description: 'Current active projects, reading list, and goals',
     execute: (_, ctx) => {
       ctx.runCommand('cat currently.txt');
@@ -487,7 +517,7 @@ export const COMMANDS: CommandDefinition[] = [
 
   {
     name: 'contact',
-    aliases: ['email', 'github', 'socials'],
+    aliases: ['email', 'github', 'socials', 'contact.txt'],
     description: 'Display contact information and direct links',
     execute: (_, ctx) => {
       ctx.print(`
@@ -495,8 +525,24 @@ export const COMMANDS: CommandDefinition[] = [
   <div class="section-title">TELECOMMUNICATIONS • CONTACT GATEWAY</div>
   <div class="contact-grid">
     <div class="contact-item">
+      <span class="text-dim">Telegram:</span>
+      <a href="https://t.me/ortuqov" target="_blank" rel="noopener" class="external-link">@ortuqov</a>
+    </div>
+    <div class="contact-item">
       <span class="text-dim">GitHub:</span>
       <a href="https://github.com/ahmadsky007" target="_blank" rel="noopener" class="external-link">github.com/ahmadsky007</a>
+    </div>
+    <div class="contact-item">
+      <span class="text-dim">LinkedIn:</span>
+      <a href="https://www.linkedin.com/in/ahmadsky003/" target="_blank" rel="noopener" class="external-link">linkedin.com/in/ahmadsky003</a>
+    </div>
+    <div class="contact-item">
+      <span class="text-dim">Academic Email:</span>
+      <span class="text-accent">s25960@pjwstk.edu.pl</span>
+    </div>
+    <div class="contact-item">
+      <span class="text-dim">Location:</span>
+      <span class="text-highlight">Warsaw, Poland (CET / UTC+1)</span>
     </div>
     <div class="contact-item">
       <span class="text-dim">PDF Bot:</span>
@@ -505,18 +551,6 @@ export const COMMANDS: CommandDefinition[] = [
     <div class="contact-item">
       <span class="text-dim">Media Bot:</span>
       <a href="https://t.me/videonaudio_bot" target="_blank" rel="noopener" class="external-link">@videonaudio_bot (Live)</a>
-    </div>
-    <div class="contact-item">
-      <span class="text-dim">LinkedIn:</span>
-      <a href="https://www.linkedin.com/in/ahmadsky003/" target="_blank" rel="noopener" class="external-link">linkedin.com/in/ahmadsky003</a>
-    </div>
-    <div class="contact-item">
-      <span class="text-dim">Location:</span>
-      <span class="text-highlight">Warsaw, Poland (CET / UTC+1)</span>
-    </div>
-    <div class="contact-item">
-      <span class="text-dim">Academic Email:</span>
-      <span class="text-accent">s25960@pjwstk.edu.pl</span>
     </div>
   </div>
   <div class="mt-3 text-dim text-xs">
@@ -529,7 +563,7 @@ export const COMMANDS: CommandDefinition[] = [
 
   {
     name: 'resume',
-    aliases: ['cv'],
+    aliases: ['cv', 'resume.pdf', 'resume.txt'],
     description: 'Display ASCII resume and credentials',
     execute: (_, ctx) => {
       ctx.print(`

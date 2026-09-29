@@ -126,8 +126,12 @@ export class TerminalEmulator {
     this.historyIndex = this.history.length;
 
     const parts = trimmed.split(/\s+/);
-    const cmdName = parts[0].toLowerCase();
+    let cmdName = parts[0].toLowerCase();
     const args = parts.slice(1);
+
+    if (cmdName.startsWith('./')) {
+      cmdName = cmdName.slice(2);
+    }
 
     const command = COMMANDS.find((c) => c.name === cmdName || c.aliases?.includes(cmdName));
 
@@ -149,6 +153,38 @@ export class TerminalEmulator {
         this.print(`<div class="text-danger">Internal execution error: ${message}</div>`, { isError: true });
       }
     } else {
+      // Smart Fallback 1: Virtual file directly entered (e.g. .txt, .pdf, or virtual path)
+      if (cmdName.endsWith('.txt') || cmdName.endsWith('.pdf') || cmdName.startsWith('projects/')) {
+        const catCmd = COMMANDS.find((c) => c.name === 'cat');
+        if (catCmd) {
+          catCmd.execute([cmdName, ...args], ctx);
+          this.scrollToBottom();
+          return;
+        }
+      }
+
+      // Smart Fallback 2: Direct project slug entered (e.g. "polycop", "pdfmaster")
+      const cleanSlug = cmdName.replace(/^projects\//, '');
+      if (PROJECTS[cleanSlug] || cleanSlug === '1024' || cleanSlug === 'downloader') {
+        const openCmd = COMMANDS.find((c) => c.name === 'open');
+        if (openCmd) {
+          openCmd.execute([cleanSlug, ...args], ctx);
+          this.scrollToBottom();
+          return;
+        }
+      }
+
+      // Smart Fallback 3: Direct lab experiment ID entered
+      const cleanLab = cmdName.replace(/^lab\//, '');
+      if (LAB_EXPERIMENTS.some((e) => e.id.toLowerCase() === cleanLab)) {
+        const labCmd = COMMANDS.find((c) => c.name === 'lab');
+        if (labCmd) {
+          labCmd.execute([cleanLab, ...args], ctx);
+          this.scrollToBottom();
+          return;
+        }
+      }
+
       this.print(`
 <div class="line-error">
   Command not found: "<span class="text-accent">${this.escapeHtml(cmdName)}</span>".
@@ -190,7 +226,7 @@ export class TerminalEmulator {
     const token = parts[parts.length - 1].toLowerCase();
 
     if (parts.length === 1) {
-      const allCmds = COMMANDS.flatMap((c) => [c.name, ...(c.aliases || [])]);
+      const allCmds = Array.from(new Set(COMMANDS.flatMap((c) => [c.name, ...(c.aliases || [])])));
       const matches = allCmds.filter((c) => c.startsWith(token));
 
       if (matches.length === 1) {
@@ -202,6 +238,18 @@ export class TerminalEmulator {
     }
 
     const subCmd = parts[0].toLowerCase();
+    if (subCmd === 'cd') {
+      const dirs = ['projects', 'lab', 'arch'];
+      const matches = dirs.filter((d) => d.startsWith(token));
+      if (matches.length === 1) {
+        parts[parts.length - 1] = matches[0];
+        this.inputElement.value = parts.join(' ') + ' ';
+      } else if (matches.length > 1) {
+        this.print(`<div class="text-dim">${matches.join('  ')}</div>`);
+      }
+      return;
+    }
+
     if (subCmd === 'open' || subCmd === 'project' || subCmd === 'arch') {
       const candidates = Object.keys(PROJECTS);
       const matches = candidates.filter((c) => c.startsWith(token));
