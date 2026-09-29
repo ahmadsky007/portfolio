@@ -600,6 +600,7 @@ SELECTED ENGINEERING SYSTEMS
   </pre>
 
   <div class="mt-2 text-dim text-xs">
+    <a href="/resume.pdf" target="_blank" rel="noopener" class="external-link text-accent font-bold">[ OPEN OFFICIAL PDF ]</a>
     <a href="https://github.com/ahmadsky007" target="_blank" rel="noopener" class="external-link">[ VERIFY ON GITHUB ]</a>
     <span class="cmd-link" data-cmd="contact">[ GET IN TOUCH ]</span>
   </div>
