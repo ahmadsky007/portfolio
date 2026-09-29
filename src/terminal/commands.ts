@@ -165,7 +165,7 @@ export const COMMANDS: CommandDefinition[] = [
   <div class="file-row"><span class="file-perm">-rw-r--r--</span> <span class="cmd-link file-name" data-cmd="cat currently.txt">currently.txt</span> <span class="text-dim">[What I'm building & learning now]</span></div>
   <div class="file-row"><span class="file-perm">-rw-r--r--</span> <span class="cmd-link file-name" data-cmd="cat about.txt">about.txt</span>     <span class="text-dim">[Background & education]</span></div>
   <div class="file-row"><span class="file-perm">-rw-r--r--</span> <span class="cmd-link file-name" data-cmd="cat contact.txt">contact.txt</span>   <span class="text-dim">[Email, GitHub, LinkedIn, Telegram]</span></div>
-  <div class="file-row"><span class="file-perm">-rwxr-xr-x</span> <span class="cmd-link file-name text-accent" data-cmd="resume">resume.pdf</span>    <span class="text-dim">[Monospace resume document]</span></div>
+  <div class="file-row"><span class="file-perm">-rwxr-xr-x</span> <span class="cmd-link file-name text-accent" data-cmd="resume">resume.pdf</span>    <span class="text-dim">[Curriculum Vitae · Official PDF]</span></div>
 </div>
 <div class="mt-1 text-dim">Hint: run <span class="cmd-link" data-cmd="cat currently.txt">cat currently.txt</span> or <span class="cmd-link" data-cmd="projects">projects</span></div>
 `);
@@ -564,43 +564,56 @@ export const COMMANDS: CommandDefinition[] = [
   {
     name: 'resume',
     aliases: ['cv', 'resume.pdf', 'resume.txt'],
-    description: 'Display ASCII resume and credentials',
+    description: 'Display formatted CV and link to official PDF',
     execute: (_, ctx) => {
       ctx.print(`
 <div class="section-box">
-  <div class="section-title">AHMADJON ORTUQOV — CURRICULUM VITAE</div>
-  <div class="text-right text-xs text-dim">CS @ PJATK · Warsaw, Poland · SWE • Quant</div>
+  <div class="section-title">CURRICULUM VITAE: AHMADJON ORTUQOV</div>
+  <div class="profile-layout">
+    <div class="profile-summary">
+      <div class="text-highlight font-bold">AHMADJON ORTUQOV</div>
+      <div class="text-accent">Software Engineer • Systems & Quant Builder</div>
+      <div class="text-dim">Warsaw, Poland · CS @ PJATK · <a href="https://ortuqov.com" target="_blank" rel="noopener" class="external-link">ortuqov.com</a></div>
+    </div>
+  </div>
 
-  <pre class="resume-ascii">
-EDUCATION
-────────────────────────────────────────────────────────────────────────
-Polish-Japanese Academy of Information Technology (PJATK), Warsaw, Poland
-B.Sc. in Computer Science | 2023 – 2027
-Core: Distributed Systems, Advanced Algorithms, Operating Systems, C++, Database Architecture
+  <div class="mt-3">
+    <div class="text-dim font-bold">ACADEMIC BACKGROUND:</div>
+    <div class="text-highlight font-bold">Polish-Japanese Academy of Information Technology (PJATK), Warsaw</div>
+    <div class="text-secondary">B.Sc. in Computer Science (Expected Graduation: 2026)</div>
+    <div class="text-dim">Coursework: Data Structures & Algorithms, Distributed Systems, Operating Systems, C++</div>
+  </div>
 
-TECHNICAL COMPETENCIES
-────────────────────────────────────────────────────────────────────────
-Languages:     Python (3.10+), Swift, C, C++, JavaScript (ESNext), SQL (Postgres, Oracle)
-Systems/Cloud: Docker, Google Cloud Run, WebSockets, Linux/POSIX, Git, CI/CD, Redis
-Trading • Quant: Polygon • CLOB API, py-clob-client, Wilder RSI, ATR Volatility, Walk-Forward Validation
-Frameworks:    FastAPI, aiogram 3, SwiftUI, Combine, NumPy, Pandas, Matplotlib
+  <div class="mt-3">
+    <div class="text-dim font-bold">TECHNICAL COMPETENCIES:</div>
+    <div class="bullet-item"><span class="text-dim">Languages:</span> Python (3.10+), Java, C++, C, Swift, JavaScript, SQL</div>
+    <div class="bullet-item"><span class="text-dim">Systems & Cloud:</span> Linux, Docker, GCP, Cloud Run, WebSockets, Git/GitHub, CI/CD, Redis</div>
+    <div class="bullet-item"><span class="text-dim">Core Concepts:</span> Distributed Systems, Concurrency, REST APIs, OOP, Network Analysis</div>
+  </div>
 
-SELECTED ENGINEERING SYSTEMS
-────────────────────────────────────────────────────────────────────────
-• POLYCOP: Prediction-market copy-trading & liquidity scanner. Integrated CLOB REST/WS
-  with EIP-712 signed order placement, risk controls, and automated Telegram alerts.
-• PDFMASTER: High-concurrency Telegram document service using aiogram 3 and PyMuPDF (C fitz).
-  Stateless, zero-database architecture with TTL-reaped ephemeral processing.
-• VIDEONAUDIO BOT: High-throughput media ingestion and dynamic transcoding service on Telegram.
-  Semaphore-bounded worker pool, custom FFmpeg pipelines, and 2 GB local Bot API bridge.
-• QUANT TRADING SYSTEM: Institutional RSI-10 Doji reversal backtesting engine across 12 liquid
-  crypto pairs. Implemented zero look-ahead next-bar open execution and walk-forward verification.
-• STEGO-DETECTOR: Bachelor thesis research on web steganography detection. OffscreenCanvas
-  Web Worker pipeline running Chi-Square (χ²) PoV distribution analysis and bitplane slicing.
-  </pre>
+  <div class="mt-3">
+    <div class="text-dim font-bold">SELECTED ENGINEERING PROJECTS:</div>
+    <div class="mt-2">
+      <div class="text-highlight font-bold"><span class="text-accent">POLYCOP</span> – Trading Engine <span class="text-dim text-xs">(Python, FastAPI)</span></div>
+      <div class="bullet-item text-secondary">• Sub-50ms execution engine with EIP-712 signing and automated risk controls.</div>
+    </div>
+    <div class="mt-2">
+      <div class="text-highlight font-bold"><span class="text-accent">PDFMASTER</span> – Document Service <span class="text-dim text-xs">(Python, aiogram 3)</span></div>
+      <div class="bullet-item text-secondary">• Sub-second stateless PDF processing bot deployed on Cloud Run.</div>
+    </div>
+    <div class="mt-2">
+      <div class="text-highlight font-bold"><span class="text-accent">VIDEONAUDIO</span> – Stream Transcoder <span class="text-dim text-xs">(Python, FFmpeg)</span></div>
+      <div class="bullet-item text-secondary">• High-concurrency media extraction and stream transcoding up to 2 GB.</div>
+    </div>
+  </div>
 
-  <div class="mt-2 text-dim text-xs">
-    <a href="/resume.pdf" target="_blank" rel="noopener" class="external-link text-accent font-bold">[ OPEN OFFICIAL PDF ]</a>
+  <div class="mt-3">
+    <div class="text-dim font-bold">LANGUAGES:</div>
+    <div class="bullet-item text-dim">English (C1) · Russian (B2) · Polish (Pre-Intermediate)</div>
+  </div>
+
+  <div class="mt-4 text-dim text-xs">
+    <a href="/resume.pdf" target="_blank" rel="noopener" class="external-link text-accent font-bold">[ ⬇ OPEN OFFICIAL PDF ]</a>
     <a href="https://github.com/ahmadsky007" target="_blank" rel="noopener" class="external-link">[ VERIFY ON GITHUB ]</a>
     <span class="cmd-link" data-cmd="contact">[ GET IN TOUCH ]</span>
   </div>
